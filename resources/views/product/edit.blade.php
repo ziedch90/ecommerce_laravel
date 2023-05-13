@@ -1,0 +1,57 @@
+@extends('layouts.template')
+@section('content')
+    @csrf
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">modifier produit</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        @if ($errors->any())
+        <ul class="alert alert-danger mt-3">
+        @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+        </ul>
+        @endif
+        <form action="{{ route('product.update',$product->id) }}" method="post">
+            @csrf
+            @method("put")
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="name">nom</label>
+                    <input type="text" name="name" id="name" class="form-control" value="{{$product->name}}">
+                </div>
+                <div class="form-group">
+                    <label for="price">prix</label>
+                    <input type="text" name="price" id="price" class="form-control" value="{{$product->price}}">
+                </div>
+                <div class="form-group">
+                    <label for="description">description</label>
+                    <textarea name="description" id="description" class="form-control">{{$product->description}} </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="photo">photo</label>
+                    <input type="file" name="photo" id="photo" class="form-control" value="{{$product->photo}}" >
+                </div>
+
+                <div class="form-group">
+                    <label for="categories">categories</label>
+                    <select name="category_id" id="category_id" class="form-control" required>
+                        <option>---choisir une categorie---</option>
+                        @foreach ($categories as $categorie)
+                            <option @if ($product->category->id == $categorie->id)
+                                selected
+
+                            @endif value="{{$categorie->id}}">{{$categorie->name}}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">modifier</button>
+            </div>
+        </form>
+    @endsection
