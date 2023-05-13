@@ -23,13 +23,13 @@ class FrontController extends Controller
             "products" => $products
         ]);
     }
-    public function categoriesApi(){
-        $categories=Category::all();
-        return  response()->json([
-            "success" => true,
-            "categories" => $categories
-        ]);
-    }
+    // public function categoriesApi(){
+    //     $categories=Category::all();
+    //     return  response()->json([
+    //         "success" => true,
+    //         "categories" => $categories
+    //     ]);
+    // }
    public function store(Request $request){
     //session()->flush();
     //enregistrer un produit dans le panier dans la session
